@@ -24,6 +24,7 @@ spec:
   groups:
   - name: kube-apiserver-slos
     rules:
+{{- if .Values.kubeApiServer.enabled }}
 {{- if not (.Values.defaultRules.disabled.KubeAPIErrorBudgetBurn | default false) }}
     - alert: KubeAPIErrorBudgetBurn
       annotations:
@@ -99,5 +100,8 @@ spec:
 {{- if .Values.defaultRules.additionalRuleLabels }}
 {{ toYaml .Values.defaultRules.additionalRuleLabels | indent 8 }}
 {{- end }}
+{{- end }}
+{{- else }}
+{}
 {{- end }}
 {{- end }}
